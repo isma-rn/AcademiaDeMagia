@@ -43,6 +43,12 @@ using (var scope = app.Services.CreateScope())
     grimorios.Add(new Grimorio() { Nombre = "Desesperación", NumeroHojas = 5 });
     context.Grimonio.AddRange(grimorios);
 
+    var estatus = new List<Estatus>();
+    estatus.Add(new Estatus { Nombre = "Pendiente"});
+    estatus.Add(new Estatus { Nombre = "Aceptado"});
+    estatus.Add(new Estatus { Nombre = "Rechazado"});
+    context.Estatus.AddRange(estatus);
+
     context.SaveChanges();
 }
 

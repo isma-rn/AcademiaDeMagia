@@ -22,6 +22,19 @@ namespace Academia.MapeoDatos.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Estatus",
+                columns: table => new
+                {
+                    EstatusId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Estatus", x => x.EstatusId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Grimorio",
                 columns: table => new
                 {
@@ -70,14 +83,20 @@ namespace Academia.MapeoDatos.Migrations
                 {
                     SolicitudId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Estatus = table.Column<byte>(type: "tinyint", nullable: false),
                     Creacion = table.Column<int>(type: "int", nullable: false),
                     UltimaModificacion = table.Column<int>(type: "int", nullable: true),
-                    EstudianteId = table.Column<int>(type: "int", nullable: false)
+                    EstudianteId = table.Column<int>(type: "int", nullable: false),
+                    EstatusId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Solicitud", x => x.SolicitudId);
+                    table.ForeignKey(
+                        name: "FK_Solicitud_Estatus_EstatusId",
+                        column: x => x.EstatusId,
+                        principalTable: "Estatus",
+                        principalColumn: "EstatusId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Solicitud_Estudiante_EstudianteId",
                         column: x => x.EstudianteId,
@@ -97,6 +116,11 @@ namespace Academia.MapeoDatos.Migrations
                 column: "GrimorioId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Solicitud_EstatusId",
+                table: "Solicitud",
+                column: "EstatusId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Solicitud_EstudianteId",
                 table: "Solicitud",
                 column: "EstudianteId");
@@ -106,6 +130,9 @@ namespace Academia.MapeoDatos.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Solicitud");
+
+            migrationBuilder.DropTable(
+                name: "Estatus");
 
             migrationBuilder.DropTable(
                 name: "Estudiante");

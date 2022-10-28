@@ -15,13 +15,15 @@ namespace Academia.MapeoDatos
         public DbSet<Grimorio> Grimonio { get; set; }
         public DbSet<Estudiante> Estudiante { get; set; }
         public DbSet<Solicitud> Solicitud { get; set; }
+        public DbSet<Estatus> Estatus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Afinidad>().ToTable("Afinidad");
             modelBuilder.Entity<Grimorio>().ToTable("Grimorio");
             modelBuilder.Entity<Estudiante>().ToTable("Estudiante");
-            modelBuilder.Entity<Solicitud>().ToTable("Solicitud");
+            modelBuilder.Entity<Estatus>().ToTable("Estatus");
+            modelBuilder.Entity<Solicitud>().ToTable("Solicitud");            
         }
     }
 }

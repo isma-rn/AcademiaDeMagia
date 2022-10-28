@@ -40,6 +40,23 @@ namespace Academia.MapeoDatos.Migrations
                     b.ToTable("Afinidad", (string)null);
                 });
 
+            modelBuilder.Entity("Academia.MapeoDatos.Entidades.Estatus", b =>
+                {
+                    b.Property<int>("EstatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EstatusId"), 1L, 1);
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EstatusId");
+
+                    b.ToTable("Estatus", (string)null);
+                });
+
             modelBuilder.Entity("Academia.MapeoDatos.Entidades.Estudiante", b =>
                 {
                     b.Property<int>("EstudianteId")
@@ -113,8 +130,8 @@ namespace Academia.MapeoDatos.Migrations
                     b.Property<int>("Creacion")
                         .HasColumnType("int");
 
-                    b.Property<byte>("Estatus")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("EstatusId")
+                        .HasColumnType("int");
 
                     b.Property<int>("EstudianteId")
                         .HasColumnType("int");
@@ -123,6 +140,8 @@ namespace Academia.MapeoDatos.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("SolicitudId");
+
+                    b.HasIndex("EstatusId");
 
                     b.HasIndex("EstudianteId");
 
@@ -148,11 +167,19 @@ namespace Academia.MapeoDatos.Migrations
 
             modelBuilder.Entity("Academia.MapeoDatos.Entidades.Solicitud", b =>
                 {
+                    b.HasOne("Academia.MapeoDatos.Entidades.Estatus", "Estatus")
+                        .WithMany()
+                        .HasForeignKey("EstatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Academia.MapeoDatos.Entidades.Estudiante", "Estudiante")
                         .WithMany()
                         .HasForeignKey("EstudianteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Estatus");
 
                     b.Navigation("Estudiante");
                 });

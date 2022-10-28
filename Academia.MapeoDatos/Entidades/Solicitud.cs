@@ -11,12 +11,16 @@ namespace Academia.MapeoDatos.Entidades
     public class Solicitud
     {
         [Key]
-        public int SolicitudId { get; set; }
-        public byte Estatus { get; set; }
+        public int SolicitudId { get; set; }        
         public DataType Creacion { get; set; }
         public DataType? UltimaModificacion { get; set; }
+        
         public int EstudianteId { get; set; }
         [ForeignKey("EstudianteId")]
         public virtual Estudiante Estudiante { get; set; }
+
+        public int EstatusId { get; set; }
+        [ForeignKey("EstatusId")]        
+        public virtual Estatus Estatus { get; set; }
     }
 }
