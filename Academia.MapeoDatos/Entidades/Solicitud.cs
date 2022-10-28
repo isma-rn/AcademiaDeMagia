@@ -12,8 +12,8 @@ namespace Academia.MapeoDatos.Entidades
     {
         [Key]
         public int SolicitudId { get; set; }        
-        public DataType Creacion { get; set; }
-        public DataType? UltimaModificacion { get; set; }
+        public DateTime Creacion { get; set; }
+        public DateTime? UltimaModificacion { get; set; }
         
         public int EstudianteId { get; set; }
         [ForeignKey("EstudianteId")]

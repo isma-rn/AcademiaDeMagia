@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -83,8 +84,8 @@ namespace Academia.MapeoDatos.Migrations
                 {
                     SolicitudId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Creacion = table.Column<int>(type: "int", nullable: false),
-                    UltimaModificacion = table.Column<int>(type: "int", nullable: true),
+                    Creacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UltimaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EstudianteId = table.Column<int>(type: "int", nullable: false),
                     EstatusId = table.Column<int>(type: "int", nullable: false)
                 },

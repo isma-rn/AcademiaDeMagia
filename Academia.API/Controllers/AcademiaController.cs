@@ -1,5 +1,7 @@
 ﻿using Academia.MapeoDatos;
 using Academia.MapeoDatos.Entidades;
+using Academia.Negocio;
+using Academia.Negocio.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Academia.API.Controllers
@@ -8,13 +10,20 @@ namespace Academia.API.Controllers
     [ApiController]
     public class AcademiaController : ControllerBase
     {
-        private BaseDatosContext _context;
-        public AcademiaController(BaseDatosContext context)
+        private readonly SolicitudNegocio _solicitudNegocio;
+        public AcademiaController(SolicitudNegocio solicitudNegocio)
         {
-            _context = context;
+            _solicitudNegocio = solicitudNegocio;
         }
 
         [HttpGet]
-        public IEnumerable<Afinidad> Get() => _context.Afinidad.ToList();
+        public async Task<ActionResult<List<Afinidad>>> ObtenerSolicitudes()
+        {
+            var solicitud = new Solicitud();
+
+            var result = await _solicitudNegocio.GetA();
+            
+            return result;
+        }
     }
 }

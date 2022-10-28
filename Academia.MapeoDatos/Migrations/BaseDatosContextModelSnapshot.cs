@@ -127,8 +127,8 @@ namespace Academia.MapeoDatos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SolicitudId"), 1L, 1);
 
-                    b.Property<int>("Creacion")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Creacion")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("EstatusId")
                         .HasColumnType("int");
@@ -136,8 +136,8 @@ namespace Academia.MapeoDatos.Migrations
                     b.Property<int>("EstudianteId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UltimaModificacion")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("UltimaModificacion")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("SolicitudId");
 

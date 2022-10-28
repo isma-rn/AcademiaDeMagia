@@ -1,5 +1,6 @@
 using Academia.MapeoDatos;
 using Academia.MapeoDatos.Entidades;
+using Academia.Negocio;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder.Services.AddDbContext<BaseDatosContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConectionBDAcademia"));
 });
 
+builder.Services.AddScoped(typeof(SolicitudNegocio));
+
 var app = builder.Build();
 
 //migración
@@ -25,31 +28,31 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<BaseDatosContext>();
     context.Database.Migrate();
 
-    //llenamos catálogos
-    var afinidades = new List<Afinidad>();
-    afinidades.Add(new Afinidad(){ Nombre = "Oscuridad"});
-    afinidades.Add(new Afinidad(){ Nombre = "Luz" });
-    afinidades.Add(new Afinidad(){ Nombre = "Fuego" });
-    afinidades.Add(new Afinidad(){ Nombre = "Agua" });
-    afinidades.Add(new Afinidad(){ Nombre = "Viento" });
-    afinidades.Add(new Afinidad(){ Nombre = "Tierra" });
-    context.Afinidad.AddRange(afinidades);
+    ////llenamos catálogos
+    //var afinidades = new List<Afinidad>();
+    //afinidades.Add(new Afinidad() { Nombre = "Oscuridad" });
+    //afinidades.Add(new Afinidad() { Nombre = "Luz" });
+    //afinidades.Add(new Afinidad() { Nombre = "Fuego" });
+    //afinidades.Add(new Afinidad() { Nombre = "Agua" });
+    //afinidades.Add(new Afinidad() { Nombre = "Viento" });
+    //afinidades.Add(new Afinidad() { Nombre = "Tierra" });
+    //context.Afinidad.AddRange(afinidades);
 
-    var grimorios = new List<Grimorio>();
-    grimorios.Add(new Grimorio() { Nombre = "Sinceridad", NumeroHojas = 1 });
-    grimorios.Add(new Grimorio() { Nombre = "Esperanza", NumeroHojas = 2 });
-    grimorios.Add(new Grimorio() { Nombre = "Amor", NumeroHojas = 3 });
-    grimorios.Add(new Grimorio() { Nombre = "Buena Fortuna", NumeroHojas = 4 });
-    grimorios.Add(new Grimorio() { Nombre = "Desesperación", NumeroHojas = 5 });
-    context.Grimonio.AddRange(grimorios);
+    //var grimorios = new List<Grimorio>();
+    //grimorios.Add(new Grimorio() { Nombre = "Sinceridad", NumeroHojas = 1 });
+    //grimorios.Add(new Grimorio() { Nombre = "Esperanza", NumeroHojas = 2 });
+    //grimorios.Add(new Grimorio() { Nombre = "Amor", NumeroHojas = 3 });
+    //grimorios.Add(new Grimorio() { Nombre = "Buena Fortuna", NumeroHojas = 4 });
+    //grimorios.Add(new Grimorio() { Nombre = "Desesperación", NumeroHojas = 5 });
+    //context.Grimonio.AddRange(grimorios);
 
-    var estatus = new List<Estatus>();
-    estatus.Add(new Estatus { Nombre = "Pendiente"});
-    estatus.Add(new Estatus { Nombre = "Aceptado"});
-    estatus.Add(new Estatus { Nombre = "Rechazado"});
-    context.Estatus.AddRange(estatus);
+    //var estatus = new List<Estatus>();
+    //estatus.Add(new Estatus { Nombre = "Pendiente" });
+    //estatus.Add(new Estatus { Nombre = "Aceptado" });
+    //estatus.Add(new Estatus { Nombre = "Rechazado" });
+    //context.Estatus.AddRange(estatus);
 
-    context.SaveChanges();
+    //context.SaveChanges();
 }
 
 // Configure the HTTP request pipeline.
