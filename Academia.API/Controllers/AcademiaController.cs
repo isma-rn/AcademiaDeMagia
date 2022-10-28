@@ -23,6 +23,7 @@ namespace Academia.API.Controllers
         /// <param name="registro">objeto solicitud</param>
         /// <returns>json</returns>
         [HttpPost]
+        [Route("GuardarSolicitud")]
         public async Task<IActionResult> GuardarSolicitud(Registro registro)
         {
             var validacion = _solicitudNegocio.ValidarNuevaSolicitud(registro);
@@ -41,6 +42,33 @@ namespace Academia.API.Controllers
             }
 
             return Ok( new { Success = false, Errors = validacion.Mensajes});
+        }
+
+        /// <summary>
+        /// Método para actualizar estatus de solicitudes para la academia de magia
+        /// </summary>
+        /// <param name="actualiza">objeto para actualizar estatus</param>
+        /// <returns>json</returns>
+        [HttpPost]
+        [Route("ActulizarEstatusSolicitud")]
+        public async Task<IActionResult> ActulizarEstatusSolicitud(ActualizaEstatus actualiza)
+        {
+            var validacion = _solicitudNegocio.ValidarNuevoEstatus(actualiza);
+
+            if (validacion.Success)
+            {
+                var result = await _solicitudNegocio.ActualizarEstatusSolicitud(actualiza);
+
+                if (result.Success)
+                {
+                    var primerMensaje = result.Mensajes.FirstOrDefault();
+                    return Ok(new { Success = true, Mensaje = primerMensaje ?? "" });
+                }
+
+                return Ok(new { Success = false, Errors = result.Mensajes });
+            }
+
+            return Ok(new { Success = false, Errors = validacion.Mensajes });
         }
 
         [HttpGet]
