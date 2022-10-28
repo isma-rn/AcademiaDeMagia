@@ -77,9 +77,18 @@ namespace Academia.API.Controllers
         /// <returns>json</returns>
         [HttpGet]
         [Route("ConsultarSolicitudes")]
-        public async Task<ActionResult> ObtenerSolicitudes()
+        public async Task<ActionResult> ConsultarSolicitudes()
         {
             var result = await _solicitudNegocio.GetAll();
+
+            return Ok(new { Lista = result });
+        }
+
+        [HttpGet]
+        [Route("ConsultarAsignaciones")]
+        public async Task<ActionResult> ConsultarAsignaciones(int identificador)
+        {
+            var result = await _solicitudNegocio.GetAsignaciones(identificador);
 
             return Ok(new { Lista = result });
         }

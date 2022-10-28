@@ -281,9 +281,26 @@ namespace Academia.Negocio
 
             return result;
         }
-        public async Task<List<Afinidad>> GetA()
+        public async Task<List<ConsultaAsignaciones>> GetAsignaciones(int identificador)
         {
-            return await _context.Afinidad.ToListAsync();
+            var result = new List<ConsultaAsignaciones>();
+
+            var consulta = await _context.Estudiante
+                .Where(w => w.GrimorioId == identificador)
+                .Include(i => i.Afinidad).ToListAsync();
+
+            if (consulta.Any())
+            {
+                result = consulta.Select(s => new ConsultaAsignaciones
+                {
+                    NombreCompleto = $"{s.Nombre} {s.Apellido}".Trim(),
+                    Identificacion = s.Identificacion,
+                    AfinidadNombre = s.Afinidad?.Nombre??"",
+                    Edad = s.Edad
+                }).ToList();
+            }
+
+            return result;
         }
 
     }
