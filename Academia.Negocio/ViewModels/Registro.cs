@@ -8,6 +8,7 @@ namespace Academia.Negocio.ViewModels
 {
     public class Registro
     {
+        public int? Identificador { get; set; }
         public string? Nombre { get; set; }
         public string? Apellido { get; set; }
         public string? CodigoIdentificacion { get; set; }

@@ -17,18 +17,24 @@ namespace Academia.API.Controllers
             _solicitudNegocio = solicitudNegocio;
         }
 
+        /// <summary>
+        /// Método para envío o actualización de solicitudes para la academia de magia
+        /// </summary>
+        /// <param name="registro">objeto solicitud</param>
+        /// <returns>json</returns>
         [HttpPost]
-        public async Task<IActionResult> EnviarSolicitud(Registro registro)
+        public async Task<IActionResult> GuardarSolicitud(Registro registro)
         {
             var validacion = _solicitudNegocio.ValidarNuevaSolicitud(registro);
 
             if (validacion.Success)
             {
-                var result = await _solicitudNegocio.EnviarSolicitud(registro);
+                var result = await _solicitudNegocio.GuardarSolicitud(registro);
 
                 if (result.Success)
                 {
-                    return Ok(new { Success = true});
+                    var primerMensaje = result.Mensajes.FirstOrDefault();
+                    return Ok(new { Success = true, Mensaje = primerMensaje??""});
                 }
 
                 return Ok(new { Success = false, Errors = result.Mensajes });

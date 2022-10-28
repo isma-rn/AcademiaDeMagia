@@ -15,17 +15,51 @@ namespace Academia.Negocio
             _context = context;
         }
 
-        public async Task<Resultado> EnviarSolicitud(Registro registro)
+        public async Task<Resultado> GuardarSolicitud(Registro registro)
         {
-            var result = new Resultado();
+            var result = new Resultado();           
 
-            var nuevaSolicitud = AcademiaMapper.setSolicitud(registro);
-            nuevaSolicitud.EstatusId = 1;
-            _context.Solicitud.Add(nuevaSolicitud);
+            if (registro.Identificador.HasValue && registro.Identificador > 0)
+            {
+                var consulta = _context.Solicitud.Where(w => w.SolicitudId == registro.Identificador)
+                    .Include(i => i.Estudiante).FirstOrDefault();
+                if (consulta != null)
+                {
+                    consulta.UltimaModificacion = DateTime.Now;
+                    consulta.Estudiante.Nombre = registro.Nombre?.Trim() ?? "";
+                    consulta.Estudiante.Apellido = registro.Apellido?.Trim() ?? "";
+                    consulta.Estudiante.Edad = registro.Edad??0;
+                    consulta.Estudiante.Identificacion = registro.CodigoIdentificacion?.Trim() ?? "";
+                    consulta.Estudiante.AfinidadId = registro.AfinidadMagia??0;
+
+                    _context.Entry(consulta).State = EntityState.Modified;
+                }
+                else
+                {
+                    result.Mensajes.Add("Error, No se encpontró solicitud");
+                    return result;
+                }                
+            }
+            else
+            {
+                var nuevaSolicitud = AcademiaMapper.SetSolicitud(registro);
+                nuevaSolicitud.EstatusId = 1;
+                nuevaSolicitud.Creacion = DateTime.Now;
+                _context.Solicitud.Add(nuevaSolicitud);
+            }
 
             try
             {
                 await _context.SaveChangesAsync();
+
+                if (registro.Identificador.HasValue && registro.Identificador > 0)
+                {
+                    result.Mensajes.Add("Actualizado correctamente");
+                }
+                else
+                {
+                    result.Mensajes.Add("Creado correctamente");
+                }
             }
             catch (Exception error)
             {
@@ -33,7 +67,7 @@ namespace Academia.Negocio
                 return result;
             }
 
-            result.Success = true;
+            result.Success = true;            
             return result;
         }
         public Resultado ValidarNuevaSolicitud(Registro registro)
@@ -42,6 +76,15 @@ namespace Academia.Negocio
 
             if(registro != null)
             {
+                if (registro.Identificador.HasValue && registro.Identificador>0)
+                {
+                    var existe = _context.Solicitud.Where(w => w.SolicitudId == registro.Identificador).Any();
+                    if (!existe)
+                    {
+                        result.Mensajes.Add("Error, No se encpontró solicitud");
+                    }
+                }
+                //
                 if (string.IsNullOrEmpty(registro.Nombre))
                 {
                     result.Mensajes.Add("Capture Nombre");
