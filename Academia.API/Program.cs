@@ -29,30 +29,55 @@ using (var scope = app.Services.CreateScope())
     context.Database.Migrate();
 
     ////llenamos catálogos
-    //var afinidades = new List<Afinidad>();
-    //afinidades.Add(new Afinidad() { Nombre = "Oscuridad" });
-    //afinidades.Add(new Afinidad() { Nombre = "Luz" });
-    //afinidades.Add(new Afinidad() { Nombre = "Fuego" });
-    //afinidades.Add(new Afinidad() { Nombre = "Agua" });
-    //afinidades.Add(new Afinidad() { Nombre = "Viento" });
-    //afinidades.Add(new Afinidad() { Nombre = "Tierra" });
-    //context.Afinidad.AddRange(afinidades);
+    var afinidades = new List<Afinidad>()
+    {
+        new Afinidad() { Nombre = "Oscuridad" },
+        new Afinidad() { Nombre = "Luz" },
+        new Afinidad() { Nombre = "Fuego" },
+        new Afinidad() { Nombre = "Agua" },
+        new Afinidad() { Nombre = "Viento" },
+        new Afinidad() { Nombre = "Tierra" }
+    };
+    afinidades.ForEach( nvoAfinidad => {
+        var existe = context.Afinidad.Where(w => w.Nombre.Contains(nvoAfinidad.Nombre)).Any();
+        if (!existe)
+        {
+            context.Afinidad.Add(nvoAfinidad);
+        }
+    });
 
-    //var grimorios = new List<Grimorio>();
-    //grimorios.Add(new Grimorio() { Nombre = "Sinceridad", NumeroHojas = 1 });
-    //grimorios.Add(new Grimorio() { Nombre = "Esperanza", NumeroHojas = 2 });
-    //grimorios.Add(new Grimorio() { Nombre = "Amor", NumeroHojas = 3 });
-    //grimorios.Add(new Grimorio() { Nombre = "Buena Fortuna", NumeroHojas = 4 });
-    //grimorios.Add(new Grimorio() { Nombre = "Desesperación", NumeroHojas = 5 });
-    //context.Grimonio.AddRange(grimorios);
+    var grimorios = new List<Grimorio>()
+    {
+        new Grimorio() { Nombre = "Sinceridad", NumeroHojas = 1 },
+        new Grimorio() { Nombre = "Esperanza", NumeroHojas = 2 },
+        new Grimorio() { Nombre = "Amor", NumeroHojas = 3 },
+        new Grimorio() { Nombre = "Buena Fortuna", NumeroHojas = 4 },
+        new Grimorio() { Nombre = "Desesperación", NumeroHojas = 5 }
+    };
+    grimorios.ForEach( nvoGrimorio => {
+        var existe = context.Grimonio.Where(w => w.Nombre.Contains(nvoGrimorio.Nombre)).Any();
+        if (!existe)
+        {
+            context.Grimonio.Add(nvoGrimorio);
+        }
+    });
 
-    //var estatus = new List<Estatus>();
-    //estatus.Add(new Estatus { Nombre = "Pendiente" });
-    //estatus.Add(new Estatus { Nombre = "Aceptado" });
-    //estatus.Add(new Estatus { Nombre = "Rechazado" });
-    //context.Estatus.AddRange(estatus);
 
-    //context.SaveChanges();
+    var estatus = new List<Estatus>()
+    {
+        new Estatus { Nombre = "Pendiente" },
+        new Estatus { Nombre = "Aceptado" },
+        new Estatus { Nombre = "Rechazado" }
+    };
+    estatus.ForEach(nvoEstatus => {
+        var existe = context.Estatus.Where(w => w.Nombre.Contains(nvoEstatus.Nombre)).Any();
+        if (!existe)
+        {
+            context.Estatus.AddRange(estatus);
+        }
+    });    
+
+    context.SaveChanges();
 }
 
 // Configure the HTTP request pipeline.

@@ -24,10 +24,11 @@ namespace Academia.Negocio.Mapper
             }
             var nuevoEstudiante = new Estudiante()
             {
-                Nombre = registro.Nombre,
-                Apellido = registro.Apellido,
-                Edad = registro.Edad,
-                Identificacion = registro.CodigoIdentificacion
+                Nombre = registro.Nombre ?? "",
+                Apellido = registro.Apellido ?? "",
+                Edad = registro.Edad ?? 0,
+                Identificacion = registro.CodigoIdentificacion??"",
+                AfinidadId = registro.AfinidadMagia ?? 0
             };
             result.Estudiante = nuevoEstudiante;
 

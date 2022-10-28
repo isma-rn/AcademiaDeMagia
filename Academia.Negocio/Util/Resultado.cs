@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Academia.Negocio.Util
 {
-    public class Resultado<T>
+    public class Resultado
     {
-        public T Value { get; set; }
         public bool Success { get; set; }
-        public string Mensaje { get; set; }
+        public List<string> Mensajes = new List<string>();
     }
 }
