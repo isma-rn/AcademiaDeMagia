@@ -71,14 +71,17 @@ namespace Academia.API.Controllers
             return Ok(new { Success = false, Errors = validacion.Mensajes });
         }
 
+        /// <summary>
+        /// Obtiene una lista de todas las solicitudes disponibles
+        /// </summary>
+        /// <returns>json</returns>
         [HttpGet]
-        public async Task<ActionResult<List<Afinidad>>> ObtenerSolicitudes()
+        [Route("ConsultarSolicitudes")]
+        public async Task<ActionResult> ObtenerSolicitudes()
         {
-            var solicitud = new Solicitud();
+            var result = await _solicitudNegocio.GetAll();
 
-            var result = await _solicitudNegocio.GetA();
-            
-            return result;
+            return Ok(new { Lista = result });
         }
     }
 }

@@ -260,7 +260,27 @@ namespace Academia.Negocio
 
             return result;
         }
+        public async Task<List<Registro>> GetAll()
+        {
+            var result = new List<Registro>();
 
+            var consulta = await _context.Solicitud.Include(i => i.Estudiante).ToListAsync();
+            if (consulta.Any())
+            {
+                result = consulta.Select(s => new Registro{ 
+                    Identificador = s.SolicitudId,
+                    Creacion = s.Creacion,
+                    Nombre = s.Estudiante.Nombre,
+                    Apellido = s.Estudiante.Apellido,
+                    CodigoIdentificacion = s.Estudiante.Identificacion,
+                    Edad = s.Estudiante.Edad,
+                    AfinidadMagia = s.Estudiante.AfinidadId,
+                    Grimorio = s.Estudiante.GrimorioId
+                }).ToList();
+            }
+
+            return result;
+        }
         public async Task<List<Afinidad>> GetA()
         {
             return await _context.Afinidad.ToListAsync();
