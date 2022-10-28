@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academia.API", "Academia.API\Academia.API.csproj", "{7C80AEF9-47F6-494D-A0C5-057E90A5EDF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academia.MapeoDatos", "Academia.MapeoDatos\Academia.MapeoDatos.csproj", "{61D5E59D-C8C7-4489-B9BF-04BE3BE5B0B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C80AEF9-47F6-494D-A0C5-057E90A5EDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C80AEF9-47F6-494D-A0C5-057E90A5EDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C80AEF9-47F6-494D-A0C5-057E90A5EDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C80AEF9-47F6-494D-A0C5-057E90A5EDF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61D5E59D-C8C7-4489-B9BF-04BE3BE5B0B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61D5E59D-C8C7-4489-B9BF-04BE3BE5B0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61D5E59D-C8C7-4489-B9BF-04BE3BE5B0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61D5E59D-C8C7-4489-B9BF-04BE3BE5B0B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA10B754-8D96-42BE-B6EE-7D874A840887}
+	EndGlobalSection
+EndGlobal
