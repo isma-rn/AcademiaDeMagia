@@ -84,6 +84,11 @@ namespace Academia.API.Controllers
             return Ok(new { Lista = result });
         }
 
+        /// <summary>
+        /// Obtiene un listado de estudiantes, de acuerdo a un grimorio
+        /// </summary>
+        /// <param name="identificador">identificador grimorio</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("ConsultarAsignaciones")]
         public async Task<ActionResult> ConsultarAsignaciones(int identificador)
@@ -91,6 +96,20 @@ namespace Academia.API.Controllers
             var result = await _solicitudNegocio.GetAsignaciones(identificador);
 
             return Ok(new { Lista = result });
+        }
+
+        /// <summary>
+        /// Elimina de forma física una solicitud
+        /// </summary>
+        /// <param name="identificador">identificador solicitud</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("EliminarSolicitud")]
+        public async Task<ActionResult> EliminarSolicitud(int identificador)
+        {
+            var result = await _solicitudNegocio.EliminarSolicitud(identificador);
+
+            return Ok(new { success = result.Success, Mensajes =  result.Mensajes});
         }
     }
 }

@@ -4,6 +4,7 @@ using Academia.Negocio.Mapper;
 using Academia.Negocio.Util;
 using Academia.Negocio.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace Academia.Negocio
 {    
@@ -152,7 +153,7 @@ namespace Academia.Negocio
         {
             var result = new Resultado();
 
-            if(registro != null)
+            if (registro != null)
             {
                 if (registro.Identificador.HasValue && registro.Identificador>0)
                 {
@@ -192,11 +193,15 @@ namespace Academia.Negocio
                 //
                 if (string.IsNullOrEmpty(registro.CodigoIdentificacion))
                 {
-                    result.Mensajes.Add("Capture Apellidos");
+                    result.Mensajes.Add("Capture identificación");
                 }
-                else if (registro.CodigoIdentificacion.Length > 10)
+                else
                 {
-                    result.Mensajes.Add("Sólo se permiten máximo 10 caraceres para el Identificación");
+                    var rgx = new Regex("^[a-zA-Z0-9]{1,10}?$");
+                    if (!rgx.IsMatch(registro.CodigoIdentificacion))
+                    {
+                        result.Mensajes.Add("Sólo se permiten máximo 10 caraceres de números y letras para identificación");
+                    }
                 }
                 //
                 if (!registro.AfinidadMagia.HasValue || registro.AfinidadMagia == 0)
@@ -302,6 +307,32 @@ namespace Academia.Negocio
 
             return result;
         }
+        public async Task<Resultado> EliminarSolicitud(int identificador)
+        {
+            var result = new Resultado();
 
+            var consulta = _context.Solicitud.Where(w => w.SolicitudId == identificador).FirstOrDefault();
+            if (consulta != null)
+            {
+                _context.Solicitud.Remove(consulta);
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    
+                    result.Mensajes.Add("Se eliminó correctamente la solicitud");
+                    result.Success = true;
+                    return result;
+                }
+                catch (Exception error)
+                {
+                    result.Mensajes.Add(error.Message);
+                    return result;
+                }
+            }
+
+            result.Mensajes.Add("No se encontró registroa a eliminar");
+            return result;
+        }
     }
 }
