@@ -14,7 +14,7 @@ Se recomienda el seguimiento de los pasos a continuación:
   y seleccionamos la opción "Clonar"
 
 3: Esperamos a que se descarguen los archivos del proyecto, y después debemos ubicar el panel "Explorador de soluciones"
-  nota. Si no se ubica el panel podemos dirigirnos al menú: Ver, opción "Explorador de soluciones" 
+  nota. Si no se ubica el panel podemos dirigirnos al menú: Ver, opción "Explorador de soluciones". Y en caso que en el explorador de soluciones se muestre un archivo llamado "AcademiaDeMagia.slq" debemos dar doble click sobre el
 
 4: A continuación Ubicamos el proyecto "Academia.API" y damos doble click en appsetting.json para abrirlo
 
