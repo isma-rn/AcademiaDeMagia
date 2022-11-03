@@ -37,7 +37,7 @@ namespace Academia.Negocio
                 }
                 else
                 {
-                    result.Mensajes.Add("Error, No se encpontró solicitud");
+                    result.Mensajes.Add("Error, No se encontró solicitud");
                     return result;
                 }                
             }
@@ -265,11 +265,13 @@ namespace Academia.Negocio
 
             return result;
         }
-        public async Task<List<Registro>> GetAll()
+        public async Task<List<Registro>> GetAll(int GrimorioId)
         {
             var result = new List<Registro>();
 
-            var consulta = await _context.Solicitud.Include(i => i.Estudiante).ToListAsync();
+            var consulta = await _context.Solicitud
+                .Where(w => GrimorioId == 0? true : w.Estudiante.GrimorioId == GrimorioId)
+                .Include(i => i.Estudiante.Grimorio).ToListAsync();
             if (consulta.Any())
             {
                 result = consulta.Select(s => new Registro{ 
@@ -280,7 +282,8 @@ namespace Academia.Negocio
                     CodigoIdentificacion = s.Estudiante.Identificacion,
                     Edad = s.Estudiante.Edad,
                     AfinidadMagia = s.Estudiante.AfinidadId,
-                    Grimorio = s.Estudiante.GrimorioId
+                    Grimorio = s.Estudiante.Grimorio?.Nombre??"No Asignado",
+                    Estatus = s.EstatusId
                 }).ToList();
             }
 
@@ -332,6 +335,63 @@ namespace Academia.Negocio
             }
 
             result.Mensajes.Add("No se encontró registroa a eliminar");
+            return result;
+        }
+
+        public async Task<List<Catalogo>> GetAllGrimonios()
+        {
+            var result = new List<Catalogo>();
+
+            var consulta = await _context.Grimonio
+                .ToListAsync();
+
+            if (consulta.Any())
+            {
+                result = consulta.Select(s => new Catalogo
+                {
+                    Id = s.GrimorioId,
+                    Valor = s.Nombre
+                }).ToList();
+            }
+
+            return result;
+        }
+
+        public async Task<List<Catalogo>> GetAllEstatus()
+        {
+            var result = new List<Catalogo>();
+
+            var consulta = await _context.Estatus
+                .ToListAsync();
+
+            if (consulta.Any())
+            {
+                result = consulta.Select(s => new Catalogo
+                {
+                    Id = s.EstatusId,
+                    Valor = s.Nombre
+                }).ToList();
+            }
+
+            return result;
+        }
+
+        public async Task<List<Catalogo>> GetAllAfinidades()
+        {
+            var result = new List<Catalogo>();
+
+            var consulta = await _context.Afinidad
+                .ToListAsync();
+
+            if (consulta.Any())
+            {
+                result = consulta.Select(s => new Catalogo
+                {
+                    Id = s.AfinidadId,
+                    Valor = s.Nombre
+                }).ToList();
+            }
+
             return result;
         }
     }

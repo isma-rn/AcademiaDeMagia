@@ -15,6 +15,7 @@ namespace Academia.Negocio.ViewModels
         public string? CodigoIdentificacion { get; set; }
         public byte? Edad { get; set; }
         public int? AfinidadMagia { get; set; }
-        public int? Grimorio { get; set; }
+        public string? Grimorio { get; set; }
+        public int? Estatus { get; set; }
     }
 }

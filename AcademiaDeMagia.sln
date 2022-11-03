@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32630.192
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Academia.API", "Academia.API\Academia.API.csproj", "{7C80AEF9-47F6-494D-A0C5-057E90A5EDF0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Academia.MapeoDatos", "Academia.MapeoDatos\Academia.MapeoDatos.csproj", "{61D5E59D-C8C7-4489-B9BF-04BE3BE5B0B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academia.Negocio", "Academia.Negocio\Academia.Negocio.csproj", "{1134D9D1-10CC-4733-AA03-902A9066AEDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Academia.Negocio", "Academia.Negocio\Academia.Negocio.csproj", "{1134D9D1-10CC-4733-AA03-902A9066AEDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academia.ClienteWeb", "Academia.ClienteWeb\Academia.ClienteWeb.csproj", "{709EDE67-4C6E-472A-8970-379A94BFE6D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{1134D9D1-10CC-4733-AA03-902A9066AEDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1134D9D1-10CC-4733-AA03-902A9066AEDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1134D9D1-10CC-4733-AA03-902A9066AEDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{709EDE67-4C6E-472A-8970-379A94BFE6D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709EDE67-4C6E-472A-8970-379A94BFE6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709EDE67-4C6E-472A-8970-379A94BFE6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709EDE67-4C6E-472A-8970-379A94BFE6D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

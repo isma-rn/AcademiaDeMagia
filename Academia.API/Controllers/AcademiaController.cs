@@ -31,17 +31,10 @@ namespace Academia.API.Controllers
             if (validacion.Success)
             {
                 var result = await _solicitudNegocio.GuardarSolicitud(registro);
-
-                if (result.Success)
-                {
-                    var primerMensaje = result.Mensajes.FirstOrDefault();
-                    return Ok(new { Success = true, Mensaje = primerMensaje??""});
-                }
-
-                return Ok(new { Success = false, Errors = result.Mensajes });
+                return Ok(new { Success = result.Success, Mensajes = result.Mensajes });
             }
 
-            return Ok( new { Success = false, Errors = validacion.Mensajes});
+            return Ok(new { Success = validacion.Success, Mensajes = validacion.Mensajes });
         }
 
         /// <summary>
@@ -58,17 +51,11 @@ namespace Academia.API.Controllers
             if (validacion.Success)
             {
                 var result = await _solicitudNegocio.ActualizarEstatusSolicitud(actualiza);
-
-                if (result.Success)
-                {
-                    var primerMensaje = result.Mensajes.FirstOrDefault();
-                    return Ok(new { Success = true, Mensaje = primerMensaje ?? "" });
-                }
-
-                return Ok(new { Success = false, Errors = result.Mensajes });
+                
+                return Ok(new { Success = result.Success, Mensajes = result.Mensajes });
             }
 
-            return Ok(new { Success = false, Errors = validacion.Mensajes });
+            return Ok(new { Success = false, Mensajes = validacion.Mensajes });
         }
 
         /// <summary>
@@ -77,11 +64,11 @@ namespace Academia.API.Controllers
         /// <returns>json</returns>
         [HttpGet]
         [Route("ConsultarSolicitudes")]
-        public async Task<ActionResult> ConsultarSolicitudes()
+        public async Task<ActionResult> ConsultarSolicitudes(int identificador)
         {
-            var result = await _solicitudNegocio.GetAll();
+            var result = await _solicitudNegocio.GetAll(identificador);
 
-            return Ok(new { Lista = result });
+            return Ok(result);
         }
 
         /// <summary>
@@ -95,7 +82,7 @@ namespace Academia.API.Controllers
         {
             var result = await _solicitudNegocio.GetAsignaciones(identificador);
 
-            return Ok(new { Lista = result });
+            return Ok(result);
         }
 
         /// <summary>
@@ -110,6 +97,33 @@ namespace Academia.API.Controllers
             var result = await _solicitudNegocio.EliminarSolicitud(identificador);
 
             return Ok(new { success = result.Success, Mensajes =  result.Mensajes});
+        }
+
+        [HttpGet]
+        [Route("ObtenerGrimonios")]
+        public async Task<ActionResult> ObtenerGrimonios()
+        {
+            var result = await _solicitudNegocio.GetAllGrimonios();
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("ObtenerEstatus")]
+        public async Task<ActionResult> ObtenerEstatus()
+        {
+            var result = await _solicitudNegocio.GetAllEstatus();
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("ObtenerAfinidad")]
+        public async Task<ActionResult> ObtenerAfinidad()
+        {
+            var result = await _solicitudNegocio.GetAllAfinidades();
+
+            return Ok(result);
         }
     }
 }

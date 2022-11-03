@@ -1,0 +1,73 @@
+﻿@using Academia.ClienteWeb.Models
+@model List<Registro>
+@{
+    List<Catalogo> selectAfinidad = (List<Catalogo>)ViewBag.SelectAfinidad;
+    List<Catalogo> selectEstatus = (List<Catalogo>)ViewBag.SelectEstatus;
+}
+
+<div style="min-width:100%; max-width:100%; overflow:auto; height:93%">
+    <table class="table">
+        <thead>
+            <tr>
+                <td><p class="encabezado">No.</p></td>
+                <td><p class="encabezado">Nombre</p></td>
+                <td><p class="encabezado">Apellido</p></td>
+                <td><p class="encabezado">Identificación</p></td>
+                <td><p class="encabezado">Edad</p></td>
+                <td><p class="encabezado">Afinidad</p></td>
+                <td><p class="encabezado">Grimorio</p></td>
+                <td><p class="encabezado">Fecha Creación</p></td>
+                <td><p class="encabezado">Estatus</p></td>
+                <td><p class="encabezado">Acciones</p></td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Any())
+                {
+                    int contador = 1;
+                    foreach(var item in Model)
+                    {
+                            <tr>
+                                <td>@contador</td>
+                                <td>
+                                    <input id="@string.Concat("Nombre_", item.Identificador)" type="text" style="min-width:150px; max-width:150px; width:150px" value="@item.Nombre" maxlength="20"/>
+                                </td>
+                                <td>
+                                    <input id="@string.Concat("Apellido_", item.Identificador)" type="text" style="min-width:150px; max-width:150px; width:150px" value="@item.Apellido" maxlength="20"/>
+                                </td>
+                                <td>
+                                    <input id="@string.Concat("Codigo_", item.Identificador)" type="text" style="min-width:90px; max-width:90px; width:90px" value="@item.CodigoIdentificacion" maxlength="10"/>
+                                </td>
+                                <td>                                
+                                    <input id="@string.Concat("Edad_", item.Identificador)" type="number" min="1" max="99" style="min-width:75px; max-width:75px; width:75px" value="@item.Edad"/>
+                                </td>
+                                <td>
+                                    @Html.DropDownList(string.Concat("Afinidad_", item.Identificador), new SelectList(selectAfinidad, "Id", "Valor", $"{item.AfinidadMagia}"))
+                                </td>
+                                <td>
+                                    @item.Grimorio
+                                </td>
+                                <td>@item.Creacion</td>
+                                <td>
+                                    @Html.DropDownList(string.Concat("Estatus_", item.Identificador), new SelectList(selectEstatus, "Id", "Valor", $"{item.Estatus}"))
+                                </td>
+                                <td>
+                                    <button class="guardarRow btn btn-primary" data-iden="@item.Identificador">Guardar</button>
+                                    <button class="eliminar btn btn-danger" data-iden="@item.Identificador">Eliminar</button>
+                                </td>
+                            </tr>
+
+                        contador++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="9">No se encontraron registros</td>
+                    </tr>
+                }                
+            }        
+        </tbody>
+    </table>
+</div>
